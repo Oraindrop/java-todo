@@ -38,7 +38,12 @@
         <td>{{contents}}</td>
         <td>{{formattedCreatedDate}}</td>
         <td>{{formattedModifiedDate}}</td>
-        <td><button class="btn"><i class="fa fa-edit"></i></button></td>
+        <td>
+            <form name="edit" method="post" action="/todos/{{id}}">
+                <input type="hidden" name="_method" value="put">
+                <button class="btn" type="submit"><i class="fa fa-edit"></i></button>
+            </form>
+        </td>
         <td><button class="btn"><i class="fa fa-check"></i></button></td>
     </tr>
     {{/completed}}
