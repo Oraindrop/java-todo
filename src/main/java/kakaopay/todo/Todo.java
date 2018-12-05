@@ -10,10 +10,10 @@ public class Todo extends AbstractEntity {
     @Lob
     private String contents;
 
-    private boolean deleted;
+    private boolean completed;
 
     public Todo() {
-        this.deleted = false;
+        this.completed = false;
     }
 
     public String getContents() {
@@ -24,12 +24,12 @@ public class Todo extends AbstractEntity {
         this.contents = contents;
     }
 
-    public boolean isDeleted() {
-        return deleted;
+    public boolean isCompleted() {
+        return completed;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
 
