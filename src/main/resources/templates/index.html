@@ -1,17 +1,45 @@
 <!doctype html>
 <html lang="kr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!--[if lt IE 9]>
+    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Todo</title>
+    <link href="/css/styles.css" rel="stylesheet">
+
 </head>
 <body>
-<h1>Hello World</h1>
-<form>
-    <textarea name="contents" id="contents" rows="1" class="form-control"></textarea>
-    <button type="submit" class="btn btn-success clearfix pull-right">등록</button>
+<h1>To-do List</h1>
+<form name="todo" method="post" action="/todos">
+    <input type="text" name="contents" id="contents"/>
+    <input type="submit" value="Add"/>
 </form>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>contents</th>
+        <th>createDate</th>
+        <th>modifyDate</th>
+        <th>actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#todos}}
+    {{^deleted}}
+    <tr>
+        <td>{{id}}</td>
+        <td>{{contents}}</td>
+        <td>{{formattedCreatedDate}}</td>
+        <td>{{formattedModifiedDate}}</td>
+    </tr>
+    {{/deleted}}
+    {{/todos}}
+    </tbody>
+</table>
 </body>
 </html>
