@@ -9,6 +9,7 @@
     <![endif]-->
     <title>Todo</title>
     <link href="/css/styles.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 <body>
@@ -25,19 +26,22 @@
         <th>contents</th>
         <th>createDate</th>
         <th>modifyDate</th>
-        <th>actions</th>
+        <th>edit</th>
+        <th>complete</th>
     </tr>
     </thead>
     <tbody>
     {{#todos}}
-    {{^deleted}}
+    {{^completed}}
     <tr>
         <td>{{id}}</td>
         <td>{{contents}}</td>
         <td>{{formattedCreatedDate}}</td>
         <td>{{formattedModifiedDate}}</td>
+        <td><button class="btn"><i class="fa fa-edit"></i></button></td>
+        <td><button class="btn"><i class="fa fa-check"></i></button></td>
     </tr>
-    {{/deleted}}
+    {{/completed}}
     {{/todos}}
     </tbody>
 </table>
