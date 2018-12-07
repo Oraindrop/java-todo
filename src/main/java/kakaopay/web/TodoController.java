@@ -18,16 +18,9 @@ public class TodoController {
     @Autowired
     private TodoRepository todoRepository;
 
-    @GetMapping
-    public String show(Model model){
-        model.addAttribute("todos", todoRepository.findAll());
-        return "index";
-    }
-
     @PostMapping
     public String create(Todo theTodo){
         todoRepository.save(theTodo);
-
         return "redirect:/";
     }
 

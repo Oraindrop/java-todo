@@ -1,54 +1,61 @@
-<!doctype html>
-<html lang="kr">
-<head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Todo</title>
-    <link href="/css/styles.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{#partial "content"}}
+    <h1>To-do List</h1>
 
-</head>
-<body>
-<h1>To-do List</h1>
-<form name="todo" method="post" action="/todos">
-    <input type="text" name="contents" id="contents"/>
-    <input type="submit" value="Add"/>
-</form>
+    <form name="todo" method="post" action="/todos">
+        <input type="text" name="contents" id="contents"/>
+        <input type="submit" value="Add"/>
+    </form>
 
-<table>
-    <thead>
-    <tr>
-        <th>id</th>
-        <th>contents</th>
-        <th>createDate</th>
-        <th>modifyDate</th>
-        <th>edit</th>
-        <th>complete</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{#todos}}
-    {{^completed}}
-    <tr>
-        <td>{{id}}</td>
-        <td>{{contents}}</td>
-        <td>{{formattedCreatedDate}}</td>
-        <td>{{formattedModifiedDate}}</td>
-        <td>
-            <form name="edit" method="post" action="/todos/{{id}}">
-                <input type="hidden" name="_method" value="put">
-                <button class="btn" type="submit"><i class="fa fa-edit"></i></button>
-            </form>
-        </td>
-        <td><button class="btn"><i class="fa fa-check"></i></button></td>
-    </tr>
-    {{/completed}}
-    {{/todos}}
-    </tbody>
-</table>
-</body>
-</html>
+    <table>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>contents</th>
+            <th>createDate</th>
+            <th>modifyDate</th>
+            <th>edit</th>
+            <th>complete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#todos}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{contents}}</td>
+            <td>{{formattedCreatedDate}}</td>
+            <td>{{formattedModifiedDate}}</td>
+            <td>
+                <!--<form name="edit" method="post" action="/todos/{{id}}">-->
+                    <!--<input type="hidden" name="_method" value="put">-->
+                    <button class="btn" type="submit"><i class="fa fa-edit"></i></button>
+                <!--</form>-->
+            </td>
+            <td><button class="btn"><i class="fa fa-check"></i></button></td>
+        </tr>
+        {{/todos}}
+        </tbody>
+    </table>
+
+    <div>
+        <div class="pagination p1">
+            <ul>
+                {{#pageUtil}}
+                {{#prePage}}
+                <a href="/?page={{this}}"><li><</li></a>
+                {{/prePage}}
+
+                {{#pages}}
+                <a href="/?page={{this}}"><li><span id = "pages">{{this}}</span></li></a>
+                {{/pages}}
+
+                {{#nextPage}}
+                <a href="/?page={{this}}"><li>></li></a>
+                {{/nextPage}}
+                {{/pageUtil}}
+            </ul>
+        </div>
+    </div>
+{{/partial}}
+
+{{> base}}
+
