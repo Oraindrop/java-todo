@@ -21,7 +21,7 @@ public class PagingUtil {
     }
 
     public Integer getPrePage() {
-        int prePage =  ((this.currentPage / DEFAULT_PAGE_BUNDLE_NUMBER) * DEFAULT_PAGE_BUNDLE_NUMBER) - 1;
+        int prePage = ((this.currentPage / DEFAULT_PAGE_BUNDLE_NUMBER) * DEFAULT_PAGE_BUNDLE_NUMBER) - 1;
         if(prePage == -1) return null;
         return prePage;
     }

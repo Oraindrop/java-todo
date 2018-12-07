@@ -2,7 +2,7 @@
     <h1>To-do List</h1>
 
     <form name="todo" method="post" action="/todos">
-        <input type="text" name="contents" id="contents"/>
+        <input type="text" name="contents"/>
         <input type="submit" value="Add"/>
     </form>
 
@@ -20,17 +20,16 @@
         <tbody>
         {{#todos}}
         <tr>
-            <td>{{id}}</td>
-            <td>{{contents}}</td>
+            <td id="id">{{id}}</td>
+            <td id="contents">{{contents}}</td>
             <td>{{formattedCreatedDate}}</td>
-            <td>{{formattedModifiedDate}}</td>
+            <td id="modifiedDate">{{formattedModifiedDate}}</td>
             <td>
-                <!--<form name="edit" method="post" action="/todos/{{id}}">-->
-                    <!--<input type="hidden" name="_method" value="put">-->
-                    <button class="btn" type="submit"><i class="fa fa-edit"></i></button>
-                <!--</form>-->
+                <button class="btn" type="submit" id="edit"><i class="fa fa-edit"></i></button>
             </td>
-            <td><button class="btn"><i class="fa fa-check"></i></button></td>
+            <td>
+                <button class="btn"><i class="fa fa-check"></i></button>
+            </td>
         </tr>
         {{/todos}}
         </tbody>

@@ -16,6 +16,11 @@ public class Todo extends AbstractEntity {
         this.completed = false;
     }
 
+    public Todo(String contents) {
+        this.completed = false;
+        this.contents = contents;
+    }
+
     public String getContents() {
         return contents;
     }
@@ -32,5 +37,8 @@ public class Todo extends AbstractEntity {
         this.completed = completed;
     }
 
+    public void update(String contents){
+        this.contents = contents;
+    }
 
 }
