@@ -1,6 +1,6 @@
-package kakaopay.todo;
+package kakaopay.domain;
 
-import kakaopay.AbstractEntity;
+import support.domain.AbstractEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.Lob;

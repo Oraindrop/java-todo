@@ -1,4 +1,4 @@
-package kakaopay.todo;
+package kakaopay.domain;
 
 import org.springframework.data.repository.CrudRepository;
 

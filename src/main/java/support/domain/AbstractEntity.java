@@ -1,4 +1,4 @@
-package kakaopay;
+package support.domain;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

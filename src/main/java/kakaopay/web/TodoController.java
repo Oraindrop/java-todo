@@ -1,5 +1,7 @@
-package kakaopay.todo;
+package kakaopay.web;
 
+import kakaopay.domain.Todo;
+import kakaopay.domain.TodoRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +27,7 @@ public class TodoController {
     @PostMapping
     public String create(Todo theTodo){
         todoRepository.save(theTodo);
+
         return "redirect:/";
     }
 
