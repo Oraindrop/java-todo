@@ -1,5 +1,6 @@
 package kakaopay.web;
 
+import kakaopay.CanNotReferenceException;
 import kakaopay.domain.Todo;
 import kakaopay.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ApiTodoController {
     public Result<Todo> update(@PathVariable long id, String contents) {
         try {
             return Result.ok(todoService.update(id, contents));
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalStateException | CanNotReferenceException e) {
             return Result.error(e.getMessage());
         }
     }

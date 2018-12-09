@@ -12,7 +12,7 @@ public class ContentsParser {
         Matcher matcher = pattern.matcher(target);
         List<Long> refers = new ArrayList<>();
 
-        while (matcher.find()){
+        while (matcher.find()) {
             refers.add(Long.parseLong(matcher.group().substring(1)));
         }
 

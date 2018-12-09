@@ -1,5 +1,6 @@
 package kakaopay.service;
 
+import kakaopay.CanNotReferenceException;
 import kakaopay.domain.Todo;
 import kakaopay.domain.TodoRepository;
 import org.slf4j.Logger;
@@ -23,19 +24,36 @@ public class TodoService {
     }
 
     public Todo create(String contents) {
-        return todoRepository.save(new Todo(checkContents(contents)));
+        Todo theTodo = todoRepository.save(new Todo(checkExistReference(contents)));
+        theTodo.createReference();
+        logger.debug("createTodo : {}", theTodo);
+        return theTodo;
     }
 
     public Todo update(long id, String contents) {
-        Todo theTodo = todoRepository.findById(id).orElseThrow(IllegalStateException::new);
-        theTodo.update(checkContents(contents));
+        Todo theTodo = todoRepository.findByIdAndCompleted(id, false).orElseThrow(IllegalStateException::new);
+        theTodo.update(checkSelfReference(id, checkExistReference(contents)));
+        logger.debug("updateTodo : {}", theTodo);
         return todoRepository.save(theTodo);
     }
 
-    private String checkContents(String contents) throws IllegalArgumentException{
-        for (Long id : ContentsParser.parseReference(contents)){
-            logger.debug("Exception : can't reference");
-            todoRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("참조 id를 확인해주세요. : " + id));
+    public Todo delete(long id) {
+        Todo theTodo = todoRepository.findByIdAndCompleted(id, false).orElseThrow(IllegalStateException::new);
+        theTodo.complete();
+        logger.debug("completeTodo : {}", theTodo);
+        return todoRepository.save(theTodo);
+    }
+
+    private String checkExistReference(String contents) throws CanNotReferenceException {
+        for (Long id : ContentsParser.parseReference(contents)) {
+            todoRepository.findByIdAndCompleted(id, false).orElseThrow(() -> new CanNotReferenceException("존재하지 않는 참조 id 입니다. : " + id));
+        }
+        return contents;
+    }
+
+    private String checkSelfReference(long id, String contents) throws CanNotReferenceException {
+        for (Long inputId : ContentsParser.parseReference(contents)) {
+            if (id == inputId) throw new CanNotReferenceException("자기 자신은 참조할 수 없습니다 : " + id);
         }
         return contents;
     }

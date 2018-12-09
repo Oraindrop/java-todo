@@ -23,7 +23,7 @@ public class HomeController {
     private TodoService todoService;
 
     @GetMapping("/")
-    public String home(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable){
+    public String home(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable) {
         Page<Todo> todos = todoService.findAllByCompleted(false, pageable);
         logger.debug("pages Total : {}", todos.getTotalPages());
         logger.debug("curPage : {}", pageable.getPageNumber());

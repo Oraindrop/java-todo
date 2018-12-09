@@ -11,11 +11,11 @@ public class Result<T> {
         this.errorMessage = errorMessage;
     }
 
-    public static Result ok(Object data){
+    public static Result ok(Object data) {
         return new Result(data, true, "");
     }
 
-    public static Result error(String errorMessage){
+    public static Result error(String errorMessage) {
         return new Result(null, false, errorMessage);
     }
 

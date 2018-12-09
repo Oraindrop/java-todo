@@ -28,7 +28,10 @@
                 <button class="btn" type="submit" id="edit"><i class="fa fa-edit"></i></button>
             </td>
             <td>
-                <button class="btn"><i class="fa fa-check"></i></button>
+                <form style="margin-bottom:0em" method="post" action="/todos/{{id}}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button class="btn" type="submit"><i class="fa fa-check"></i></button>
+                </form>
             </td>
         </tr>
         {{/todos}}
