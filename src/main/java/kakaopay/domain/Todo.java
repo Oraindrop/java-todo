@@ -62,6 +62,12 @@ public class Todo extends AbstractEntity {
     }
 
     public void update(String newContents) {
+        // 참조 변경사항 없는 case
+        if(isUnChangedReference(newContents)){
+            this.contents = newContents;
+            return;
+        }
+        // Cycle 없는 경우
         if (isPossibleUpdate(newContents)) {
             ReferenceGraph.deleteReference(getId());
             ReferenceGraph.addReference(this.makeReferenceGraph(newContents));
@@ -70,11 +76,11 @@ public class Todo extends AbstractEntity {
     }
 
     private boolean isPossibleUpdate(String newContents) {
-        // 참조 변경사항 없는 case.
-        if (ContentsParser.parseReference(newContents).equals(ContentsParser.parseReference(this.contents)))
-            return true;
-        // Cycle 여부 확인.
         return ReferenceGraph.isCycle(getId(), makeReferenceGraph(newContents));
+    }
+
+    private boolean isUnChangedReference(String newContents){
+        return ContentsParser.parseReference(newContents).equals(ContentsParser.parseReference(this.contents));
     }
 
     private Graph makeReferenceGraph(String newContents) {

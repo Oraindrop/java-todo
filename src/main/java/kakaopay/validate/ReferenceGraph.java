@@ -28,6 +28,7 @@ public class ReferenceGraph {
         Node v = Node.ofId(id);
         isDeletePossible(v);
         List<Edge> removeItems = new ArrayList<>();
+        // need Refactoring
         for (Edge edge : theGraph.getEdges()) {
             if (edge.isFromSourceNode(v)) removeItems.add(edge);
         }

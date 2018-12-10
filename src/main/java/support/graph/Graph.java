@@ -43,6 +43,7 @@ public class Graph {
     public boolean removeWithSourceNode(Node v) {
         logger.debug("v : {}", v);
         logger.debug("edges : {}", edges);
+        // need Refactoring
         List<Edge> removeItems = new ArrayList<>();
         for (Edge edge : edges) {
             if (edge.isFromSourceNode(v)) removeItems.add(edge);

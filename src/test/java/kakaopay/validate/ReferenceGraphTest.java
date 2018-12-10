@@ -22,8 +22,7 @@ public class ReferenceGraphTest {
         Graph graph = Graph.of();
         graph.add(Edge.ofNodes(Node.ofId(1), Node.ofId(2)));
         ReferenceGraph.addReference(graph);
-        ReferenceGraph.deleteReference(Node.ofId(1));
-
+        ReferenceGraph.deleteReference(1);
     }
 
     @Test(expected = CanNotReferenceException.class)
@@ -31,7 +30,7 @@ public class ReferenceGraphTest {
         Graph graph = Graph.of();
         graph.add(Edge.ofNodes(Node.ofId(1), Node.ofId(2)));
         ReferenceGraph.addReference(graph);
-        ReferenceGraph.deleteReference(Node.ofId(2));
+        ReferenceGraph.deleteReference(2);
     }
 
     @Test
