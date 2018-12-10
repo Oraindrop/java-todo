@@ -3,20 +3,20 @@
 ## 문제해결 전략
 * [x] 사용자는 텍스트로 된 할일을 추가할 수 있다.
 * [x] 할일 추가 시 다른 할일들을 참조 걸 수 있다.
-  * 할일 추가 시 **유효하지 않은 id를 참조할 수 없다.**
-  * **정규 표현식**으로 '@id' 형식은 참조로 구현
+  * 할일 추가 시 **유효하지 않은 id를 참조할 수 없다**
+  * `정규 표현식`으로 '@id' 형식은 참조로 구현
 
 * [x] 사용자는 할일을 수정할 수 있다.
   * 할일 수정 시 **자기 자신을 참조할 수 없다**
-  * 할일 수정 시 **DeadLock이 발생할 확률이 있다**
+  * 할일 수정 시 `DeadLock` **발생 확률이 있다**
     * DeadLock 방지 로직 구현
-    * 단방향 **Graph** 자료구조를 이용하여 **순환 검출(Cycle Detect)**
+    * 단방향 `Graph` 자료구조를 이용하여 `순환 검출(Cycle Detect)`
     * `할일 -> 참조하는 할일` 방향의 edge
     * 자기 자식으로부터 *dfs*로 탐색, 자기 자신으로 돌아오는 경로가 존재하는지 확인
 
 * [x] 사용자는 할일 목록을 조회할 수 있다.
 * [x] 조회시 작성일, 최종수정일, 내용이 조회 가능하다.
-  * *spring data JPA* **Auditing 기능** 으로 TimeStamp
+  * *spring data JPA* **Auditing 기능**으로 TimeStamp
 
 * [x] 할일 목록은 페이징 기능이 있다.
   * *spring data JPA* **Pageable 기능** 적용
@@ -26,10 +26,10 @@
 
 * [x] 완료처리 시 참조가 걸린 완료되지 않은 할일이 있다면 완료처리할 수 없다
   * 참조 정보를 저장하는 *Reference table*
-    * **역방향 참조** 확인(자기 자신이 target인 reference 존재여부)
-    * *Reference table*이 없다면, 삭제 시 Todo Table을 전부 스캔하여 **O(n)** 소요
-    * *Reference table*의 경우 Reference Data의 크기(이하 : E)에 따른 **O(E)** 소요
-    * 일반적인 경우, Reference 정보의 개수가 Todo 정보의 개수에 비해 확연히 작을 것으로 추정
+    * `역방향 참조` 확인(자기 자신이 target인 reference 존재여부)
+    * *Reference table*이 없다면, 삭제 시 **Todo Table을 전부 스캔하여 O(n) 소요**
+    * *Reference table*이 있는 경우, 삭제 시 **Reference Data의 크기(이하 : E)에 따른 O(E) 소요**
+    * 일반적인 경우, Reference 정보의 개수가 Todo 정보의 개수에 비해 **확연히 적을 것**으로 추정
 
 ## 프로젝트 빌드 및 실행 방법
 
