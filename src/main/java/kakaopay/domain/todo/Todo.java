@@ -8,12 +8,12 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Entity
-public class
-Todo extends AbstractEntity {
+public class Todo extends AbstractEntity {
     private static final Logger logger = getLogger(Todo.class);
 
     @Lob
@@ -50,13 +50,27 @@ Todo extends AbstractEntity {
         return ContentsParser.parseReference(this.contents);
     }
 
-
     public void update(String newContents) {
         this.contents = newContents;
     }
 
     public void complete() {
         this.completed = true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Todo todo = (Todo) o;
+        return completed == todo.completed &&
+                Objects.equals(contents, todo.contents);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), contents, completed);
     }
 
     @Override
