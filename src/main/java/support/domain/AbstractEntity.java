@@ -45,7 +45,7 @@ public class AbstractEntity {
         this.modifiedDate = modifiedDate;
     }
 
-    public boolean matchId(long id){
+    public boolean matchId(long id) {
         return this.id == id;
     }
 

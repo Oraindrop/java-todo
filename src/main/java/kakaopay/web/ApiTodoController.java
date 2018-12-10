@@ -1,15 +1,10 @@
 package kakaopay.web;
 
-import kakaopay.CanNotReferenceException;
-import kakaopay.domain.Todo;
+import kakaopay.domain.todo.Todo;
 import kakaopay.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import support.result.Result;
 
 @RestController
@@ -18,11 +13,29 @@ public class ApiTodoController {
     @Autowired
     TodoService todoService;
 
-    @PutMapping("{id}")
+    @PostMapping
+    public Result<Todo> create(String contents) {
+        try {
+            return Result.ok(todoService.create(contents));
+        } catch (IllegalArgumentException e) {
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{id}")
     public Result<Todo> update(@PathVariable long id, String contents) {
         try {
             return Result.ok(todoService.update(id, contents));
-        } catch (IllegalStateException | CanNotReferenceException e) {
+        } catch (IllegalArgumentException e) {
+            return Result.error(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public Result<Todo> delete(@PathVariable long id) {
+        try {
+            return Result.ok(todoService.delete(id));
+        } catch (IllegalArgumentException e) {
             return Result.error(e.getMessage());
         }
     }

@@ -1,9 +1,9 @@
 {{#partial "content"}}
     <h1>To-do List</h1>
 
-    <form name="todo" method="post" action="/todos">
+    <form name="todo" id="todo" method="post" action="/api/todos">
         <input type="text" name="contents"/>
-        <input type="submit" value="Add"/>
+        <input type="submit" id="add" value="Add"/>
     </form>
 
     <table>
@@ -23,14 +23,13 @@
             <td id="id">{{id}}</td>
             <td id="contents">{{contents}}</td>
             <td>{{formattedCreatedDate}}</td>
-            <td id="modifiedDate">{{formattedModifiedDate}}</td>
+            <td id="modified">{{formattedModifiedDate}}</td>
             <td>
                 <button class="btn" type="submit" id="edit"><i class="fa fa-edit"></i></button>
             </td>
             <td>
-                <form style="margin-bottom:0em" method="post" action="/todos/{{id}}">
-                    <input type="hidden" name="_method" value="DELETE">
-                    <button class="btn" type="submit"><i class="fa fa-check"></i></button>
+                <form style="margin-bottom:0em" id="delete" method="post" action="/api/todos/{{id}}">
+                    <button class="btn" id="del" type="submit"><i class="fa fa-check"></i></button>
                 </form>
             </td>
         </tr>

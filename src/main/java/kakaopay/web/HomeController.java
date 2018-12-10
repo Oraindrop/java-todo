@@ -1,6 +1,6 @@
 package kakaopay.web;
 
-import kakaopay.domain.Todo;
+import kakaopay.domain.todo.Todo;
 import kakaopay.service.TodoService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +18,13 @@ import static org.slf4j.LoggerFactory.getLogger;
 @Controller
 public class HomeController {
     private static final Logger logger = getLogger(HomeController.class);
+    public static final int SHOW_SIZE_IN_ONE_PAGE = 5;
 
     @Autowired
     private TodoService todoService;
 
     @GetMapping("/")
-    public String home(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = 5) Pageable pageable) {
+    public String home(Model model, @PageableDefault(sort = {"id"}, direction = Sort.Direction.ASC, size = SHOW_SIZE_IN_ONE_PAGE) Pageable pageable) {
         Page<Todo> todos = todoService.findAllByCompleted(false, pageable);
         logger.debug("pages Total : {}", todos.getTotalPages());
         logger.debug("curPage : {}", pageable.getPageNumber());

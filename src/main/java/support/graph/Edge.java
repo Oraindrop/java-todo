@@ -1,16 +1,14 @@
 package support.graph;
 
+import kakaopay.domain.reference.Reference;
+
 public class Edge {
     private Node sourceNode;
     private Node targetNode;
 
-    private Edge(Node sourceNode, Node targetNode) {
-        this.sourceNode = sourceNode;
-        this.targetNode = targetNode;
-    }
-
-    public static Edge ofNodes(Node sourceNode, Node targetNode) {
-        return new Edge(sourceNode, targetNode);
+    public Edge(Reference reference) {
+        this.sourceNode = new Node(reference.getSource().getId());
+        this.targetNode = new Node(reference.getTarget().getId());
     }
 
     public Node getSourceNode() {

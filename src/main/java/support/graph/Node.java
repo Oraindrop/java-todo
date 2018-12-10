@@ -5,12 +5,8 @@ import java.util.Objects;
 public class Node {
     private long id;
 
-    private Node(long id) {
+    public Node(long id) {
         this.id = id;
-    }
-
-    public static Node ofId(long id) {
-        return new Node(id);
     }
 
     @Override
