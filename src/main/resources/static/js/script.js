@@ -11,7 +11,9 @@ $("table").on("click", "#del", deleteTodo);
 function deleteTodo(e){
     e.preventDefault();
     console.log(e);
-    var url = $("#delete").attr("action");
+    var deleteButton = $(this);
+    console.log(deleteButton);
+    var url = deleteButton.parent().attr("action");
     console.log(url);
 
     $.ajax({
