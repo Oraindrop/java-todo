@@ -34,19 +34,11 @@ public class Todo extends AbstractEntity {
         return contents;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
     public boolean isCompleted() {
         return completed;
     }
 
-    public void setCompleted(boolean completed) {
-        this.completed = completed;
-    }
-
-    public List<Long> makeReferences() {
+    public List<Long> extractTargetReferences() {
         return ContentsParser.parseReference(this.contents);
     }
 

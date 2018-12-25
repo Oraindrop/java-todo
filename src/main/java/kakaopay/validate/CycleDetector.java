@@ -12,37 +12,37 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class CycleDetector {
     private static final Logger logger = getLogger(CycleDetector.class);
 
-    private List<Edge> graph;
-
-    public CycleDetector(List<Reference> references) {
-        this.graph = new ArrayList<>();
-        for (Reference reference : references) {
-            this.graph.add(new Edge(reference));
-        }
-    }
-
-    public void detectCycle() {
-        Set<Node> sources = makeSources();
+    public static void detectCycle(List<Reference> references) {
+        List<Edge> graph = initGraph(references);
+        Set<Node> sources = makeSources(graph);
         for (Node source : sources) {
-            start(source);
+            start(source, graph);
         }
     }
 
-    private Set<Node> makeSources() {
+    private static List<Edge> initGraph(List<Reference> references){
+        List<Edge> graph = new ArrayList<>();
+        for (Reference reference : references) {
+            graph.add(new Edge(reference));
+        }
+        return graph;
+    }
+
+    private static Set<Node> makeSources(List<Edge> graph) {
         Set<Node> sources = new HashSet<>();
-        for (Edge edge : this.graph) {
+        for (Edge edge : graph) {
             sources.add(edge.getSourceNode());
         }
         return sources;
     }
 
-    private void start(Node source) {
-        for (Edge edge : this.graph) {
-            if (edge.isFromSourceNode(source)) dfs(edge.getTargetNode(), source);
+    private static void start(Node source, List<Edge> graph) {
+        for (Edge edge : graph) {
+            if (edge.isFromSourceNode(source)) dfs(edge.getTargetNode(), source, graph);
         }
     }
 
-    private void dfs(Node v, Node here) {
+    private static void dfs(Node v, Node here, List<Edge> graph) {
         logger.debug("Node : {} start", v);
         Stack<Node> stack = new Stack<>();
         stack.push(v);
@@ -53,12 +53,12 @@ public class CycleDetector {
             if (source.equals(here)) throw new IllegalArgumentException("사이클이 존재하여 수정할 수 없습니다. : " + here);
             visited.add(source);
 
-            search(stack, visited, source);
+            search(stack, visited, source, graph);
         }
     }
 
-    private void search(Stack<Node> stack, List<Node> visited, Node source) {
-        for (Edge edge : this.graph) {
+    private static void search(Stack<Node> stack, List<Node> visited, Node source, List<Edge> graph) {
+        for (Edge edge : graph) {
             if (edge.isFromSourceNode(source) && !visited.contains(edge.getTargetNode())) {
                 stack.push(edge.getTargetNode());
             }

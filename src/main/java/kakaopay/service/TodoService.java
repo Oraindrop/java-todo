@@ -29,7 +29,7 @@ public class TodoService {
         return todoRepository.findAllByCompleted(bool, pageable);
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
+    @Transactional
     public Todo create(String contents) {
         Todo theTodo = todoRepository.save(new Todo(contents));
         this.createReference(theTodo);
@@ -37,7 +37,7 @@ public class TodoService {
         return theTodo;
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
+    @Transactional
     public Todo delete(long id) {
         Todo theTodo = this.findByIdAndCompleted(id);
         theTodo.complete();
@@ -46,7 +46,7 @@ public class TodoService {
         return todoRepository.save(theTodo);
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
+    @Transactional
     public Todo update(long id, String contents) {
         Todo theTodo = this.findByIdAndCompleted(id);
         this.updateReference(theTodo, ContentsParser.parseReference(contents));
@@ -60,13 +60,13 @@ public class TodoService {
     }
 
     private void createReference(Todo sourceTodo) {
-        for (Long target : sourceTodo.makeReferences()) {
+        for (Long target : sourceTodo.extractTargetReferences()) {
             referenceService.create(sourceTodo, this.findByIdAndCompleted(target));
         }
     }
 
     private void updateReference(Todo theTodo, List<Long> newTargets) {
-        List<Long> curTargets = theTodo.makeReferences();
+        List<Long> curTargets = theTodo.extractTargetReferences();
 
         List<Long> delTargets = new ArrayList<>(curTargets);
         delTargets.removeAll(newTargets);

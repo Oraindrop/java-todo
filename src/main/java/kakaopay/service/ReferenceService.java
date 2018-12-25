@@ -15,19 +15,18 @@ import java.util.List;
 import static org.slf4j.LoggerFactory.getLogger;
 
 @Service
+@Transactional
 public class ReferenceService {
     private static final Logger logger = getLogger(ReferenceService.class);
 
     @Autowired
     private ReferenceRepository referenceRepository;
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
     public void create(Todo source, Todo target) {
         logger.debug("create reference");
         referenceRepository.save(new Reference(source, target));
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
     public void deleteWithTodo(Todo theTodo) {
         // theTodo 를 target 으로 하는 reference 가 없어야 삭제 가능
         if (referenceRepository.findAllByTarget(theTodo).size() != 0) {
@@ -36,18 +35,14 @@ public class ReferenceService {
         this.deleteFromSourceTodo(theTodo);
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
     public void delete(Todo source, Todo target) {
         logger.debug("delete reference {} -> {}", source, target);
         referenceRepository.delete(this.findBySourceAndTarget(source, target));
     }
 
-    @Transactional(rollbackFor = IllegalArgumentException.class)
     public void add(Todo source, Todo target) {
         referenceRepository.save(new Reference(source, target));
-        List<Reference> references = referenceRepository.findAll();
-        CycleDetector theCycleDetector = new CycleDetector(references);
-        theCycleDetector.detectCycle();
+        CycleDetector.detectCycle(referenceRepository.findAll());
         logger.debug("add reference {} -> {}", source, target);
     }
 

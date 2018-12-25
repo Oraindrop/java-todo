@@ -31,8 +31,7 @@ public class CycleDetectorTest {
     @Test
     public void detectCycle() {
         //without exception.
-        CycleDetector detector = new CycleDetector(references);
-        detector.detectCycle();
+        CycleDetector.detectCycle(references);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -40,9 +39,6 @@ public class CycleDetectorTest {
         // 1->2->3->4 , 1->5
         references.add(new Reference(create(4), create(2)));
         // 2->3->4->2->3->4->2 ... create cycle
-        CycleDetector detector = new CycleDetector(references);
-        detector.detectCycle();
+        CycleDetector.detectCycle(references);
     }
-
-
 }

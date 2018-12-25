@@ -32,16 +32,13 @@ public class Reference extends AbstractEntity {
         return source;
     }
 
-    public void setSource(Todo source) {
-        this.source = source;
-    }
-
     public Todo getTarget() {
         return target;
     }
 
-    public void setTarget(Todo target) {
-        this.target = target;
+    private void checkSelfReference(Todo source, Todo target) {
+        if (source.equals(target))
+            throw new IllegalArgumentException("자기 자신은 참조할 수 없습니다 : " + source.getId());
     }
 
     @Override
@@ -65,10 +62,5 @@ public class Reference extends AbstractEntity {
                 " -> "
                 + target +
                 '}';
-    }
-
-    private void checkSelfReference(Todo source, Todo target) {
-        if (source.equals(target))
-            throw new IllegalArgumentException("자기 자신은 참조할 수 없습니다 : " + source.getId());
     }
 }
