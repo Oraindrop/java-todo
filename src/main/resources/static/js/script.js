@@ -21,19 +21,12 @@ function deleteTodo(e){
         error: function(xhr) {
             console.log("error xhr");
             console.log(xhr);
-            alert("error!")
+            alert(xhr.responseText);
         },
         success : function(data) {
             console.log("success");
             console.log(data);
-            var valid = data.valid;
-            if(valid){
-            //ajax 지만 front 개발 시간 부족으로, reload 하였음.
-                window.location.reload();
-            }
-            else {
-                alert(data.errorMessage);
-            }
+            window.location.reload();
         }
     });
 }
@@ -51,19 +44,12 @@ function addTodo(e){
         error: function(xhr) {
             console.log("error xhr");
             console.log(xhr);
-            alert("error!")
+            alert(xhr.responseText);
         },
         success : function(data) {
             console.log("success");
             console.log(data);
-            var valid = data.valid;
-            if(valid){
-            //ajax 지만 front 개발 시간 부족으로, reload 하였음.
-                window.location.reload();
-            }
-            else {
-                alert(data.errorMessage);
-            }
+            window.location.reload();
         }
     });
 
@@ -86,20 +72,13 @@ function modifyTodo(e) {
             data : queryString,
             error : function(){
                 console.log("hello error");
+                alert(xhr.responseText);
             },
             success : function(data){
                 console.log("success");
                 console.log(data);
-
-                var valid = data.valid;
-                if(valid){
-                    var todo = data.data;
-                    newContentsElement.html(todo.contents);
-                    newModifiedDateElement.html(todo.formattedModifiedDate)
-                }
-                else {
-                    alert(data.errorMessage);
-                }
+                newContentsElement.html(data.contents);
+                newModifiedDateElement.html(data.formattedModifiedDate)
             }
         });
     }

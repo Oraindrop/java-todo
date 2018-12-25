@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import support.result.Result;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -16,8 +15,8 @@ public class RestSecurityControllerAdvice {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public Result canNotReference(IllegalArgumentException e){
+    public String canNotReference(IllegalArgumentException e){
         logger.debug("catch : {}", e.getMessage());
-        return Result.error(e.getMessage());
+        return e.getMessage();
     }
 }
