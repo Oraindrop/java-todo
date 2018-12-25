@@ -11,34 +11,20 @@ import support.result.Result;
 @RequestMapping("/api/todos")
 public class ApiTodoController {
     @Autowired
-    TodoService todoService;
+    private TodoService todoService;
 
     @PostMapping
     public Result<Todo> create(String contents) {
-        try {
-            return Result.ok(todoService.create(contents));
-        } catch (IllegalArgumentException e) {
-            return Result.error(e.getMessage());
-        }
+        return Result.ok(todoService.create(contents));
     }
 
     @PutMapping("/{id}")
     public Result<Todo> update(@PathVariable long id, String contents) {
-        try {
-            return Result.ok(todoService.update(id, contents));
-        } catch (IllegalArgumentException e) {
-            return Result.error(e.getMessage());
-        }
+        return Result.ok(todoService.update(id, contents));
     }
 
     @DeleteMapping("/{id}")
     public Result<Todo> delete(@PathVariable long id) {
-        try {
-            return Result.ok(todoService.delete(id));
-        } catch (IllegalArgumentException e) {
-            return Result.error(e.getMessage());
-        }
+        return Result.ok(todoService.delete(id));
     }
-
-
 }
