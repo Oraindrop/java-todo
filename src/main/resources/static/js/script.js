@@ -10,11 +10,8 @@ $("table").on("click", "#del", deleteTodo);
 
 function deleteTodo(e){
     e.preventDefault();
-    console.log(e);
     var deleteButton = $(this);
-    console.log(deleteButton);
     var url = deleteButton.parent().attr("action");
-    console.log(url);
 
     $.ajax({
         type : 'delete',
@@ -43,11 +40,8 @@ function deleteTodo(e){
 
 function addTodo(e){
     e.preventDefault();
-    console.log(e);
     var queryString = $("#todo").serialize();
-    console.log(queryString);
     var url = $("#todo").attr("action");
-    console.log(url);
 
     $.ajax({
         type : 'post',
