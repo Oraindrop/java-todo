@@ -23,10 +23,6 @@ public class Edge {
         return this.sourceNode.equals(v);
     }
 
-    public boolean isToTargetNode(Node v) {
-        return this.targetNode.equals(v);
-    }
-
     @Override
     public String toString() {
         return "Edge(" +
